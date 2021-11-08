@@ -9,14 +9,9 @@
       Define the Java packages where your custom Checkstyle module classes (checks, filters) reside here.
       See http://checkstyle.sourceforge.net/config.html#Packages for more info.
       -->
-    <package name="net.sf.eclipsecs.sample.checks">
-        <package name="dummysubpackage"/>
-    </package>
-    
     <package name="CategoryA">
         <package name="halsteadChecks"/>
     </package>
-    
     <package name="CategoryB">
         <package name="commentChecks"/>
     </package>

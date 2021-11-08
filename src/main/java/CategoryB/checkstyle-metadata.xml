@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE checkstyle-metadata PUBLIC
+"-//eclipse-cs//DTD Check Metadata 1.1//EN"
+"http://eclipse-cs.sourceforge.net/dtds/checkstyle-metadata_1_1.dtd">
+<checkstyle-metadata>
+    <rule-group-metadata name="commentChecks"  priority="1600">
+        <description>Comment checks.</description>
+
+        <rule-metadata name="Number of Total Comments" internal-name="NumTotalComments" parent="TreeWalker">
+            <alternative-name internal-name="MyPackage.NumTotalComments" />
+            <description>Count of single line and comment blocks</description>
+        </rule-metadata>
+        
+        <rule-metadata name="Number of Single Line Comments" internal-name="NumSingleComments" parent="TreeWalker">
+            <alternative-name internal-name="MyPackage.NumSingleComments" />
+            <description>Count of single line comments</description>
+        </rule-metadata>
+        
+        <rule-metadata name="Number of Loop Statements" internal-name="NumLoopeStatements" parent="TreeWalker">
+            <alternative-name internal-name="MyPackage.NumLoopeStatements" />
+            <description>Count of loop statements</description>
+        </rule-metadata>
+        
+        <rule-metadata name="Number of Operators" internal-name="NumOperators" parent="TreeWalker">
+            <alternative-name internal-name="MyPackage.NumOperators" />
+            <description>Count of operators</description>
+        </rule-metadata>
+        
+        <rule-metadata name="Number of Operands" internal-name="NumOperands" parent="TreeWalker">
+            <alternative-name internal-name="MyPackage.NumOperands" />
+            <description>Count of operands</description>
+        </rule-metadata>
+        
+        <rule-metadata name="Number of Expressions" internal-name="NumExpressions" parent="TreeWalker">
+            <alternative-name internal-name="MyPackage.NumExpressions" />
+            <description>Count of expressions</description>
+        </rule-metadata>
+        
+    </rule-group-metadata>
+</checkstyle-metadata>
