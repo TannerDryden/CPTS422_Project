@@ -6,7 +6,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class NumTotalComments extends AbstractCheck {
 
-  private int totalComment = 0;
+  public int totalComment = 0;
 
   @Override
   public boolean isCommentNodesRequired()
@@ -55,6 +55,10 @@ public class NumTotalComments extends AbstractCheck {
 	  else if(ast.getType() == TokenTypes.BLOCK_COMMENT_BEGIN)
 	  {
 		totalComment += ast.getChildCount(TokenTypes.COMMENT_CONTENT);
+	  }
+	  else
+	  {
+		  
 	  }
   }
 }

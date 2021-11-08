@@ -6,11 +6,11 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class HalsteadVolume extends AbstractCheck {
 
-  private int halsteadLength = 0;
-  private double halsteadVocab = 0;
-  private double halsteadVol = 0;
-  private int operator = 0;
-  private int operand = 0;
+  public int halsteadLength = 0;
+  public double halsteadVocab = 0;
+  public double halsteadVol = 0;
+  public int operator = 0;
+  public int operand = 0;
 
   @Override
   public int[] getAcceptableTokens() {
@@ -67,14 +67,14 @@ public class HalsteadVolume extends AbstractCheck {
 	  }
   }
   
-  private double log2(double n)
+  public double log2(double n)
   {
 	  double result = (int)(Math.log(n) / Math.log(2));
 	  return result;
   }
   
   // counts operators and operands recursively using the tree of the expression token
-  private void countOperatorsOperands(DetailAST astToken)
+  public void countOperatorsOperands(DetailAST astToken)
   { 
 	  if (astToken.getFirstChild() != null) 
 	  {
@@ -94,7 +94,7 @@ public class HalsteadVolume extends AbstractCheck {
   }
   
   // increments operator/operand if token is operator/operand.
-  private void checkIfOperatorOperand(DetailAST token)
+  public void checkIfOperatorOperand(DetailAST token)
   {
 	  int check = token.getType();
 	  

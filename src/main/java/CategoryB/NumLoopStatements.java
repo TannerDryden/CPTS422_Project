@@ -6,7 +6,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class NumLoopStatements extends AbstractCheck {
 
-  private int loopStatement = 0;
+  public int loopStatement = 0;
 
   @Override
   public boolean isCommentNodesRequired()

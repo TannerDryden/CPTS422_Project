@@ -6,7 +6,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class NumExpressions extends AbstractCheck {
 
-  private int expression = 0;
+  public int expression = 0;
 
   @Override
   public boolean isCommentNodesRequired()

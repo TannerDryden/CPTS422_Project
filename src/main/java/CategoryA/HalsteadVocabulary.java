@@ -6,7 +6,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class HalsteadVocabulary extends AbstractCheck {
 
-	private int halsteadVocab = 0;
+	public int halsteadVocab = 0;
 	
 	@Override
 	public int[] getDefaultTokens() {
@@ -52,7 +52,7 @@ public class HalsteadVocabulary extends AbstractCheck {
 	  }
 	  
 	  // counts operators and operands recursively using the tree of the expression token
-	  private void countOperatorsOperands(DetailAST astToken)
+	  public void countOperatorsOperands(DetailAST astToken)
 	  { 
 		  if (astToken.getFirstChild() != null) 
 		  {
@@ -72,7 +72,7 @@ public class HalsteadVocabulary extends AbstractCheck {
 	  }
 	  
 	  // increments operator/operand if token is operator/operand.
-	  private void checkIfOperatorOperand(DetailAST token)
+	  public void checkIfOperatorOperand(DetailAST token)
 	  {
 		  int check = token.getType();
 		  

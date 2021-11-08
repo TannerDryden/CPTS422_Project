@@ -6,7 +6,7 @@ import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
 public class NumOperands extends AbstractCheck {
 
-  private int operand = 0;
+  public int operand = 0;
 
   @Override
   public boolean isCommentNodesRequired()
@@ -56,7 +56,7 @@ public class NumOperands extends AbstractCheck {
   }
   
   // counts operators and operands recursively using the tree of the expression token
-  private void countOperatorsOperands(DetailAST astToken)
+  public void countOperatorsOperands(DetailAST astToken)
   { 
 	  if (astToken.getFirstChild() != null) 
 	  {
@@ -76,7 +76,7 @@ public class NumOperands extends AbstractCheck {
   }
   
   // increments operator/operand if token is operator/operand.
-  private void checkIfOperatorOperand(DetailAST token)
+  public void checkIfOperatorOperand(DetailAST token)
   {
 	  int check = token.getType();
 	  
