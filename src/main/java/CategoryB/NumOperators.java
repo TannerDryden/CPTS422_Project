@@ -16,10 +16,7 @@ public class NumOperators extends AbstractCheck {
   
   @Override
   public int[] getAcceptableTokens() {
-    return new int[] { TokenTypes.EXPR, TokenTypes.PLUS, TokenTypes.MINUS, TokenTypes.DIV, 
-    		TokenTypes.STAR, TokenTypes.MOD, TokenTypes.LT, TokenTypes.GT, TokenTypes.BAND, 
-    		TokenTypes.BOR, TokenTypes.RPAREN, TokenTypes.LPAREN, TokenTypes.EQUAL, 
-    		TokenTypes.ASSIGN };
+    return new int[] { TokenTypes.EXPR };
   }
 
   @Override
@@ -31,8 +28,7 @@ public class NumOperators extends AbstractCheck {
   public int[] getDefaultTokens() {
 	    return new int[] { TokenTypes.EXPR, TokenTypes.PLUS, TokenTypes.MINUS, TokenTypes.DIV, 
 	    		TokenTypes.STAR, TokenTypes.MOD, TokenTypes.LT, TokenTypes.GT, TokenTypes.BAND, 
-	    		TokenTypes.BOR, TokenTypes.RPAREN, TokenTypes.LPAREN, TokenTypes.EQUAL, 
-	    		TokenTypes.ASSIGN };
+	    		TokenTypes.BOR };
   }
 
 

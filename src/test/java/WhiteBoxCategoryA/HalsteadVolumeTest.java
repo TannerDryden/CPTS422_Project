@@ -1,4 +1,4 @@
-package CategoryA;
+package WhiteBoxCategoryA;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,9 @@ import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+
+import CategoryA.HalsteadVolume;
+
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
@@ -24,10 +27,7 @@ public class HalsteadVolumeTest {
 	@Test
 	public void getAcceptableTokensTest() {
 		HalsteadVolume check = new HalsteadVolume();
-		int arr[] = new int [] { TokenTypes.EXPR, TokenTypes.NUM_INT, TokenTypes.NUM_DOUBLE, TokenTypes.NUM_FLOAT,
-	    		TokenTypes.PLUS, TokenTypes.MINUS, TokenTypes.DIV, TokenTypes.STAR, TokenTypes.MOD, 
-	    		TokenTypes.LT, TokenTypes.GT, TokenTypes.BAND, TokenTypes.BOR, TokenTypes.RPAREN, 
-	    		TokenTypes.LPAREN, TokenTypes.EQUAL, TokenTypes.ASSIGN };
+		int arr[] = new int [] { TokenTypes.EXPR };
 		
 		assertArrayEquals(check.getAcceptableTokens(), arr);
 	}

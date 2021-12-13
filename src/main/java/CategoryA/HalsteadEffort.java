@@ -16,10 +16,7 @@ public class HalsteadEffort extends AbstractCheck {
 
   @Override
   public int[] getAcceptableTokens() {
-	    return new int[] { TokenTypes.EXPR, TokenTypes.NUM_INT, TokenTypes.NUM_DOUBLE, TokenTypes.NUM_FLOAT,
-	    		TokenTypes.PLUS, TokenTypes.MINUS, TokenTypes.DIV, TokenTypes.STAR, TokenTypes.MOD, 
-	    		TokenTypes.LT, TokenTypes.GT, TokenTypes.BAND, TokenTypes.BOR, TokenTypes.RPAREN, 
-	    		TokenTypes.LPAREN, TokenTypes.EQUAL, TokenTypes.ASSIGN };
+	    return new int[] { TokenTypes.EXPR };
   }
 
   @Override
@@ -50,8 +47,12 @@ public class HalsteadEffort extends AbstractCheck {
   {
 	  // calculate halstead length, volume, vocabulary, and effort
 	  halsteadLength = operator + operand;
-	  halsteadVol = halsteadLength * log2(halsteadVol);
-	  halsteadDiff = (halsteadVocab / 2) * (operand / halsteadVocab);
+	  halsteadVol = halsteadLength * log2(halsteadVocab);
+	  if (halsteadVocab == 0) {
+		  halsteadDiff = 0;
+	  } else {
+		  halsteadDiff = (halsteadVocab / 2) * (operand / halsteadVocab);
+	  }
 	  halsteadEff = halsteadDiff * halsteadVol;
 	  
 	  // log results
@@ -76,8 +77,12 @@ public class HalsteadEffort extends AbstractCheck {
   
   public double log2(double n)
   {
-	  double result = (int)(Math.log(n) / Math.log(2));
-	  return result;
+	  if(n == 0) {
+		  return 0;
+	  } else {
+		  double result = (int)(Math.log(n) / Math.log(2));
+		  return result;
+	  }
   }
   
   // counts operators and operands recursively using the tree of the expression token
@@ -108,9 +113,7 @@ public class HalsteadEffort extends AbstractCheck {
 	  // if token is and operator increment number of operators and halsteadLength
 	  if(check == TokenTypes.PLUS || check == TokenTypes.MINUS || check == TokenTypes.DIV ||
 			  check == TokenTypes.STAR || check == TokenTypes.MOD || check == TokenTypes.LT ||
-			  check == TokenTypes.GT || check == TokenTypes.BAND || check == TokenTypes.BOR || 
-			  check == TokenTypes.RPAREN || check == TokenTypes.LPAREN || check == TokenTypes.EQUAL ||
-			  check == TokenTypes.ASSIGN)
+			  check == TokenTypes.GT || check == TokenTypes.BAND || check == TokenTypes.BOR)
 	  {
 		  operator++;
 	  } 	  
@@ -122,9 +125,7 @@ public class HalsteadEffort extends AbstractCheck {
 	  
 	  // count unique operators
 	  if(check == TokenTypes.MOD || check == TokenTypes.LT || check == TokenTypes.GT ||
-			  check == TokenTypes.BAND || check == TokenTypes.BOR || 
-			  check == TokenTypes.RPAREN || check == TokenTypes.LPAREN ||
-			  check == TokenTypes.EQUAL || check == TokenTypes.ASSIGN)
+			  check == TokenTypes.BAND || check == TokenTypes.BOR)
 	  {
 		  halsteadVocab++;
 	  }

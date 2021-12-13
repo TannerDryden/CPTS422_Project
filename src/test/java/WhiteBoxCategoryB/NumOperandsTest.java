@@ -1,4 +1,4 @@
-package CategoryB;
+package WhiteBoxCategoryB;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -6,6 +6,9 @@ import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+
+import CategoryB.NumOperands;
+
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 

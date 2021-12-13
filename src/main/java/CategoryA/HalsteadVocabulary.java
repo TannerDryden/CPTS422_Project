@@ -17,9 +17,7 @@ public class HalsteadVocabulary extends AbstractCheck {
 
 	@Override
 	public int[] getAcceptableTokens() {
-		return new int[] { TokenTypes.EXPR, TokenTypes.MOD, TokenTypes.LT, TokenTypes.GT, 
-				TokenTypes.BAND, TokenTypes.BOR, TokenTypes.RPAREN, TokenTypes.LPAREN, 
-				TokenTypes.EQUAL, TokenTypes.ASSIGN };
+		return new int[] { TokenTypes.EXPR };
 	}
 
 	@Override
@@ -78,9 +76,7 @@ public class HalsteadVocabulary extends AbstractCheck {
 		  
 		  // count unique operators
 		  if(check == TokenTypes.MOD || check == TokenTypes.LT || check == TokenTypes.GT ||
-				  check == TokenTypes.BAND || check == TokenTypes.BOR || 
-				  check == TokenTypes.RPAREN || check == TokenTypes.LPAREN ||
-				  check == TokenTypes.EQUAL || check == TokenTypes.ASSIGN)
+				  check == TokenTypes.BAND || check == TokenTypes.BOR)
 		  {
 			  halsteadVocab++;
 		  }

@@ -1,4 +1,4 @@
-package CategoryB;
+package WhiteBoxCategoryB;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -7,36 +7,35 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.*;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-import CategoryA.HalsteadLength;
+import CategoryB.NumLoopStatements;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public class NumSingleCommentsTest {
-
+public class NumLoopStatementsTest {
 	@Test
 	public void isCommentNodesRequiredTest() {
-		NumSingleComments check = new NumSingleComments();
+		NumLoopStatements check = new NumLoopStatements();
 		assertTrue(check.isCommentNodesRequired());
 	}
 	
 	@Test
 	public void getDefaultTokensTest() {
-		NumSingleComments check = new NumSingleComments();
-		int[] arr = new int[] { TokenTypes.SINGLE_LINE_COMMENT };
+		NumLoopStatements check = new NumLoopStatements();
+		int[] arr = new int[] { TokenTypes.LITERAL_FOR, TokenTypes.LITERAL_WHILE, TokenTypes.DO_WHILE };
 		assertArrayEquals(check.getDefaultTokens(), arr);
 	}
 	
 	@Test
 	public void getAcceptableTokensTest() {
-		NumSingleComments check = new NumSingleComments();
-		int[] arr = new int[] { TokenTypes.SINGLE_LINE_COMMENT };
+		NumLoopStatements check = new NumLoopStatements();
+		int[] arr = new int[] { TokenTypes.LITERAL_FOR, TokenTypes.LITERAL_WHILE, TokenTypes.DO_WHILE };
 		assertArrayEquals(check.getAcceptableTokens(), arr);
 	}
 	
 	@Test
 	public void getRequiredTokensTest() {
-		NumSingleComments check = new NumSingleComments();
+		NumLoopStatements check = new NumLoopStatements();
 		int arr[] = new int [] {};
 		assertArrayEquals(check.getRequiredTokens(), arr);
 
@@ -44,14 +43,15 @@ public class NumSingleCommentsTest {
 	
 	@Test
 	public void beginTreeTest() {
-		NumSingleComments check = new NumSingleComments();
-		NumSingleComments spyCheck = Mockito.spy(check);
+		NumLoopStatements check = new NumLoopStatements();
+		NumLoopStatements spyCheck = Mockito.spy(check);
 		DetailAST mockAST = mock(DetailAST.class);
+		
 		spyCheck.beginTree(mockAST);
 		spyCheck.beginTree(mockAST);
 		spyCheck.beginTree(mockAST);
 		verify(spyCheck, times(3)).beginTree(mockAST);
-		assertEquals(0, check.singleComment);
+		assertEquals(0, spyCheck.loopStatement);
 	}
 	
 	@Test
@@ -61,10 +61,13 @@ public class NumSingleCommentsTest {
 	
 	@Test
 	public void visitTokenTest() {
-		NumSingleComments check = new NumSingleComments();
+		NumLoopStatements check = new NumLoopStatements();
+		NumLoopStatements spyCheck = Mockito.spy(check);
 		DetailAST mockAST = mock(DetailAST.class);
-		check.visitToken(mockAST);
-		assertEquals(1,check.singleComment);
 		
+		spyCheck.visitToken(mockAST);
+		spyCheck.visitToken(mockAST);
+		verify(spyCheck, times(2)).visitToken(mockAST);
+		assertEquals(2, spyCheck.loopStatement);
 	}
 }

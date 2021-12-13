@@ -1,38 +1,43 @@
-package CategoryB;
+package WhiteBoxCategoryB;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
+import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+
+import CategoryA.HalsteadLength;
+import CategoryB.NumSingleComments;
 
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public class NumExpressionsTest {
+public class NumSingleCommentsTest {
+
 	@Test
 	public void isCommentNodesRequiredTest() {
-		NumExpressions check = new NumExpressions();
+		NumSingleComments check = new NumSingleComments();
 		assertTrue(check.isCommentNodesRequired());
 	}
 	
 	@Test
 	public void getDefaultTokensTest() {
-		NumExpressions check = new NumExpressions();
-		int[] arr = new int[] { TokenTypes.EXPR };
+		NumSingleComments check = new NumSingleComments();
+		int[] arr = new int[] { TokenTypes.SINGLE_LINE_COMMENT };
 		assertArrayEquals(check.getDefaultTokens(), arr);
 	}
 	
 	@Test
 	public void getAcceptableTokensTest() {
-		NumExpressions check = new NumExpressions();
-		int[] arr = new int[] { TokenTypes.EXPR };
+		NumSingleComments check = new NumSingleComments();
+		int[] arr = new int[] { TokenTypes.SINGLE_LINE_COMMENT };
 		assertArrayEquals(check.getAcceptableTokens(), arr);
 	}
 	
 	@Test
 	public void getRequiredTokensTest() {
-		NumExpressions check = new NumExpressions();
+		NumSingleComments check = new NumSingleComments();
 		int arr[] = new int [] {};
 		assertArrayEquals(check.getRequiredTokens(), arr);
 
@@ -40,15 +45,14 @@ public class NumExpressionsTest {
 	
 	@Test
 	public void beginTreeTest() {
-		NumExpressions check = new NumExpressions();
-		NumExpressions spyCheck = Mockito.spy(check);
+		NumSingleComments check = new NumSingleComments();
+		NumSingleComments spyCheck = Mockito.spy(check);
 		DetailAST mockAST = mock(DetailAST.class);
-		
 		spyCheck.beginTree(mockAST);
 		spyCheck.beginTree(mockAST);
 		spyCheck.beginTree(mockAST);
 		verify(spyCheck, times(3)).beginTree(mockAST);
-		assertEquals(0, spyCheck.expression);
+		assertEquals(0, check.singleComment);
 	}
 	
 	@Test
@@ -58,22 +62,10 @@ public class NumExpressionsTest {
 	
 	@Test
 	public void visitTokenTest() {
-		NumExpressions check = new NumExpressions();
-		NumExpressions spyCheck = Mockito.spy(check);
+		NumSingleComments check = new NumSingleComments();
 		DetailAST mockAST = mock(DetailAST.class);
+		check.visitToken(mockAST);
+		assertEquals(1,check.singleComment);
 		
-		// if statement
-		when(mockAST.getType()).thenReturn(TokenTypes.EXPR);
-		spyCheck.visitToken(mockAST);
-		spyCheck.visitToken(mockAST);
-		verify(spyCheck, times(2)).visitToken(mockAST);
-		assertEquals(2, spyCheck.expression);
-		
-		// else
-		when(mockAST.getType()).thenReturn(TokenTypes.ABSTRACT);
-		spyCheck.visitToken(mockAST);
-		verify(spyCheck, times(3)).visitToken(mockAST);
-		assertEquals(2, spyCheck.expression);
 	}
 }
-

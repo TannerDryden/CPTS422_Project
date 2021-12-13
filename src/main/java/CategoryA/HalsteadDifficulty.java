@@ -12,10 +12,7 @@ public class HalsteadDifficulty extends AbstractCheck {
 
   @Override
   public int[] getAcceptableTokens() {
-	    return new int[] { TokenTypes.EXPR, TokenTypes.NUM_INT, TokenTypes.NUM_DOUBLE, TokenTypes.NUM_FLOAT,
-	    		TokenTypes.PLUS, TokenTypes.MINUS, TokenTypes.DIV, TokenTypes.STAR, TokenTypes.MOD, 
-	    		TokenTypes.LT, TokenTypes.GT, TokenTypes.BAND, TokenTypes.BOR, TokenTypes.RPAREN, 
-	    		TokenTypes.LPAREN, TokenTypes.EQUAL, TokenTypes.ASSIGN };
+	    return new int[] { TokenTypes.EXPR };
   }
 
   @Override
@@ -25,10 +22,7 @@ public class HalsteadDifficulty extends AbstractCheck {
 
   @Override
   public int[] getDefaultTokens() {
-	    return new int[] { TokenTypes.EXPR, TokenTypes.NUM_INT, TokenTypes.NUM_DOUBLE, TokenTypes.NUM_FLOAT,
-	    		TokenTypes.PLUS, TokenTypes.MINUS, TokenTypes.DIV, TokenTypes.STAR, TokenTypes.MOD, 
-	    		TokenTypes.LT, TokenTypes.GT, TokenTypes.BAND, TokenTypes.BOR, TokenTypes.RPAREN, 
-	    		TokenTypes.LPAREN, TokenTypes.EQUAL, TokenTypes.ASSIGN };
+	    return new int[] { TokenTypes.EXPR };
   }
 
   @Override
@@ -42,7 +36,11 @@ public class HalsteadDifficulty extends AbstractCheck {
   public void finishTree(DetailAST rootAST)
   {
 	  // calculate halstead length, volume, vocabulary, and effort
-	  halsteadDiff = (halsteadVocab / 2) * (operand / halsteadVocab);
+	  if (halsteadVocab == 0) {
+		  halsteadDiff = 0;
+	  } else {
+		  halsteadDiff = (halsteadVocab / 2) * (operand / halsteadVocab);
+	  }
 	  
 	  // log results
 	  log(rootAST.getLineNo(),"Halstead Difficulty: " + halsteadDiff);
@@ -94,9 +92,7 @@ public class HalsteadDifficulty extends AbstractCheck {
 	  
 	  // count unique operators
 	  if(check == TokenTypes.MOD || check == TokenTypes.LT || check == TokenTypes.GT ||
-			  check == TokenTypes.BAND || check == TokenTypes.BOR || 
-			  check == TokenTypes.RPAREN || check == TokenTypes.LPAREN ||
-			  check == TokenTypes.EQUAL || check == TokenTypes.ASSIGN)
+			  check == TokenTypes.BAND || check == TokenTypes.BOR)
 	  {
 		  halsteadVocab++;
 	  }

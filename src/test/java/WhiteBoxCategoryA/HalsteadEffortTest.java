@@ -1,4 +1,4 @@
-package CategoryA;
+package WhiteBoxCategoryA;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -6,48 +6,43 @@ import org.mockito.Mockito;
 
 import static org.mockito.Mockito.*;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
+
+import CategoryA.HalsteadEffort;
+
 import com.puppycrawl.tools.checkstyle.api.DetailAST;
 import com.puppycrawl.tools.checkstyle.api.TokenTypes;
 
-public class HalsteadDifficultyTest {
-
+public class HalsteadEffortTest {
 	@Test
 	public void getDefaultTokensTest() {
-		HalsteadDifficulty check = new HalsteadDifficulty();
-		int[] arr = new int[] { 
-				TokenTypes.EXPR, TokenTypes.NUM_INT, TokenTypes.NUM_DOUBLE, TokenTypes.NUM_FLOAT,
+		HalsteadEffort check = new HalsteadEffort();
+		int[] arr = new int[] { TokenTypes.EXPR, TokenTypes.NUM_INT, TokenTypes.NUM_DOUBLE, TokenTypes.NUM_FLOAT,
 	    		TokenTypes.PLUS, TokenTypes.MINUS, TokenTypes.DIV, TokenTypes.STAR, TokenTypes.MOD, 
 	    		TokenTypes.LT, TokenTypes.GT, TokenTypes.BAND, TokenTypes.BOR, TokenTypes.RPAREN, 
-	    		TokenTypes.LPAREN, TokenTypes.EQUAL, TokenTypes.ASSIGN
-	    };
+	    		TokenTypes.LPAREN, TokenTypes.EQUAL, TokenTypes.ASSIGN };
 		
 		assertArrayEquals(check.getDefaultTokens(), arr);
 	}
 	
 	@Test
 	public void getAcceptableTokensTest() {
-		HalsteadDifficulty check = new HalsteadDifficulty();
-		int arr[] = new int [] {
-				TokenTypes.EXPR, TokenTypes.NUM_INT, TokenTypes.NUM_DOUBLE, TokenTypes.NUM_FLOAT,
-	    		TokenTypes.PLUS, TokenTypes.MINUS, TokenTypes.DIV, TokenTypes.STAR, TokenTypes.MOD, 
-	    		TokenTypes.LT, TokenTypes.GT, TokenTypes.BAND, TokenTypes.BOR, TokenTypes.RPAREN, 
-	    		TokenTypes.LPAREN, TokenTypes.EQUAL, TokenTypes.ASSIGN
-		};
+		HalsteadEffort check = new HalsteadEffort();
+		int arr[] = new int [] { TokenTypes.EXPR };
 		
 		assertArrayEquals(check.getAcceptableTokens(), arr);
 	}
 	
 	@Test
 	public void getRequiredTokensTest() {
-		HalsteadDifficulty check = new HalsteadDifficulty();
+		HalsteadEffort check = new HalsteadEffort();
 		int arr[] = new int [] {};
 		assertArrayEquals(check.getRequiredTokens(), arr);
 	}
 	
 	@Test
 	public void beginTreeTest() {
-		HalsteadDifficulty check = new HalsteadDifficulty();
-		HalsteadDifficulty spyCheck = Mockito.spy(check);
+		HalsteadEffort check = new HalsteadEffort();
+		HalsteadEffort spyCheck = Mockito.spy(check);
 		DetailAST mockAST = mock(DetailAST.class);
 		spyCheck.beginTree(mockAST);
 		spyCheck.beginTree(mockAST);
@@ -57,8 +52,8 @@ public class HalsteadDifficultyTest {
 	
 	@Test
 	public void visitTokenTest() {
-		HalsteadDifficulty check = new HalsteadDifficulty();
-		HalsteadDifficulty spyCheck = Mockito.spy(check);
+		HalsteadEffort check = new HalsteadEffort();
+		HalsteadEffort spyCheck = Mockito.spy(check);
 		DetailAST mockAST = mock(DetailAST.class);
 		
 		// verify countOperatorsOperands is not called
@@ -74,64 +69,95 @@ public class HalsteadDifficultyTest {
 	
 	@Test
 	public void finishTreeTest() {
+	}
+	
+	@Test
+	public void log2Test() {
+		HalsteadEffort check = new HalsteadEffort();
 		
+		// log2(2) = 1
+		double test = check.log2(2);
+		assertEquals(1, test);
+		
+		// log2(8) = 3
+		test = check.log2(8);
+		assertEquals(3, test);
+		
+		// log2(32) = 5
+		test = check.log2(32);
+		assertEquals(5, test);
 	}
 	
 	@Test
-	public void countOperatorOperandsTest() {
-	}
-	
-	@Test
-	public void checkIfOperatorOperand() {
-		HalsteadDifficulty check = new HalsteadDifficulty();
-		HalsteadDifficulty spyCheck = Mockito.spy(check);
+	public void checkIfOperatorOperandTest() {
+		HalsteadEffort check = new HalsteadEffort();
 		DetailAST mockAST = mock(DetailAST.class);
 		
-		// ensure true for all usable tokens	
+		// ensure true for all usable tokens
+		when(mockAST.getType()).thenReturn(TokenTypes.PLUS);
+		check.checkIfOperatorOperand(mockAST);
+		assertEquals(1, check.operator);
+		check.operator -= 1;
+		
+		when(mockAST.getType()).thenReturn(TokenTypes.MINUS);
+		check.checkIfOperatorOperand(mockAST);
+		assertEquals(1, check.operator);
+		check.operator -= 1;
+		
+		when(mockAST.getType()).thenReturn(TokenTypes.DIV);
+		check.checkIfOperatorOperand(mockAST);
+		assertEquals(1, check.operator);
+		check.operator -= 1;
+		
+		when(mockAST.getType()).thenReturn(TokenTypes.STAR);
+		check.checkIfOperatorOperand(mockAST);
+		assertEquals(1, check.operator);
+		check.operator -= 1;
+		
 		when(mockAST.getType()).thenReturn(TokenTypes.MOD);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.LT);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.GT);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.BAND);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.BOR);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.RPAREN);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.LPAREN);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.EQUAL);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.ASSIGN);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(1, check.halsteadVocab);
-		check.halsteadVocab -= 1;
+		assertEquals(1, check.operator);
+		check.operator -= 1;
 		
 		when(mockAST.getType()).thenReturn(TokenTypes.NUM_DOUBLE);
 		check.checkIfOperatorOperand(mockAST);
@@ -151,7 +177,7 @@ public class HalsteadDifficultyTest {
 		// ensure false for unusable tokens
 		when(mockAST.getType()).thenReturn(TokenTypes.ABSTRACT);
 		check.checkIfOperatorOperand(mockAST);
-		assertEquals(0, check.halsteadVocab);
+		assertEquals(0, check.operator);
 		assertEquals(0, check.operand);
 	}
 }
